@@ -1,0 +1,103 @@
+# Sobre NightwatchJS
+
+Todos outros frameworks precisam de motor de execução e asserção dos testes \/
+Selenium java => Junit
+Protractor => Jasmine, Mocha
+WebdriverIO => Mocha, Jasmine, CucumberJs
+Selenium C# => MSTest, NUnit, Cucumber SpecFlow
+Capybara => Cucumber, Rspec
+
+Diferente destes frameworks, o NightwatchJS já possuí seu próprio motor de execução, ele tem tudo embutido no Core dele.
+É possível usar o mocha com o NightwatchJS tb.
+
+Nightwatch integra facilmente com TeamCity, Jenkins, Microsoft Azure, etc.
+
+# Preparando o ambiente de testes
+$ docker pull postgres
+$ docker pull dpage/pgadmin4
+$ docker pull papitoio/zombie-api
+$ docker pull papitoio/zombie-web
+
+$ docker network create --driver bridge skynet
+$ docker run --name pgdb --network=skynet -e "POSTGRES_PASSWORD=qaninja" -p 5432:5432 -v var/lib/postgresql/data -d postgres
+$ docker run --name pgadmin --network=skynet -p 15432:80 -e "PGADMIN_DEFAULT_EMAIL=root@qaninja.io" -e "PGADMIN_DEFAULT_PASSWORD=qaninja" -d dpage/pgadmin4
+
+acessar 192.168.99.100:15432
+ir em create server, host->pgdb, port->5432, maintenance database->postgres, username->postgres, password->qaninja
+ir nos hosts em System32/drivers/etc, e colocar:
+- 192.168.99.100  pgadmin
+- 192.168.99.100  pgdb
+- 192.168.99.100  zombie-api
+- 192.168.99.100  zombie-web
+* NO MAC OU LINUX => SUDO VIM /etc/hosts, adicionar no arquivo da mesma forma como no passo anterior
+
+para criar o banco de dados da aplicação: ir em pgdb->databases->create database, colocar nome zombieplus
+subir containers da aplicação:
+$ docker run --name zombie-api --network=skynet -e "DATABASE=pgdb" -p 3000:3000 -d papitoio/zombie-api
+$ docker run --name zombie-web --network=skynet -e "VUE_APP_API=http://zombie-api:3000" -p 5000:5000 -d papitoio/zombie-web
+acessar doc da API -> zombie-api:3000/apidoc
+acessar a aplicação -> zombie-web:5000
+
+pelo Postman, criar o seguinte request:
+Post http://zombie-api:3000/user
+Body = {
+  "full_name": "ZombiePotato",
+  "email": "zombiepotato@potato.com",
+  "password": "pwd123"
+}
+
+# Begin Nightwatch
+começar o projeto: npm init zombieplus
+instalar o nightwatch: npm install nightwatch --save-dev
+para executar o nightwatch: .\node_modules\.bin\
+
+colocar no package.json para execução do teste: .\\node_modules\\.bin\\nightwatch.cmd
+
+criar o arquivo nightwatch.conf.js na raíz do projeto (cria sozinho ao executar o comando acima)
+
+instalar o chromedriver: npm install chromedriver --save-dev
+
+no nightwatch.conf.js, colocar:
+const chromedriver = require('chromedriver'); e   
+webdriver: {
+    start_process: true,
+    server_path: chromedriver.path,
+    port: 9515
+  },
+
+  testar no console se pega elemento no navegador: ${'.card-login'}
+
+
+# REFATORANDO PARA ES6
+npm install babel-cli --save-dev
+npm install babel-cli -g
+npm install babel-preset-es2015 --save-dev
+npm install babel-plugin-add-module-exports --save-dev
+
+criar o .babelrc na raíz
+{
+  "presets": ["es2015"],
+  "plugins": ["add-module-exports"]
+}
+
+abrir nightwatch.conf.js
+primeira linha
+require('babel-core/register')
+
+// var = escopo de função
+// let = escopo de bloco (sem sujeira fora)
+function qualquerCoisa() {
+  var a = 1
+  if (a == 1) {
+    var b = 2 // b é declarado dentro do if mas fica visível fora
+  }
+  var c = a + b
+}
+
+function qualquerCoisa2() {
+  let a = 1
+  if (a == 1) {
+    let b = 2 // b é declarado dentro do if e não é visível fora
+  }
+  let c = a + b
+}

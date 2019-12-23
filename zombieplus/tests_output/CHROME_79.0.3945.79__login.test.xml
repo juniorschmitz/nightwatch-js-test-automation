@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="0"
+            tests="1">
+
+  <testsuite name="login.test"
+    errors="1" failures="0" hostname="" id="" package="login.test" skipped="0"
+    tests="1" time="2.012" timestamp="">
+  
+    <testcase name="Sucessful Login" classname="login.test" time="2.012" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+
+  
+    <system-err>
+      [0;31m  TypeError: target[name] is not a function[0m
+[0;90m       at Object.Sucessful Login (C:\Users\jacques.schmitz\Desktop\ZombieAutomation\zombieplus\tests\login.test.js:11:15)
+       at process._tickCallback (internal/process/next_tick.js:68:7)[0m
+    </system-err>
+  
+
+  
+  </testsuite>
+</testsuites>
