@@ -22,6 +22,17 @@ module.exports = {
 
   test_settings: {
     default: {
+      launch_url: "http://zombie-web:5000",
+      globals: {
+        waitForConditionTimeout: 15000 // Timeout Global (like Capybara)
+      },
+      desiredCapabilities: {
+        browserName : 'chrome'
+      }
+    },
+    
+    stage: {
+      launch_url: "http://stage.zombieplus.com.br",
       globals: {
         waitForConditionTimeout: 15000 // Timeout Global (like Capybara)
       },

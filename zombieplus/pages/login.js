@@ -22,7 +22,7 @@ var loginActions = {
 }
 
 module.exports = {
-  url: 'http://zombie-web:5000/login',
+  url: '/login',
   commands: [loginActions],
   elements: {
     form: '.card-login',
