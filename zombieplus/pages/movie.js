@@ -35,6 +35,12 @@ var movieActions = {
         .setValue('@uploadCover', fullPath)
         .pause(1000)
         .assert.attributeContains('.picture-src', 'src', 'blob')
+  },
+  assertSearchOneMovie: function(movieTitle) {
+      return this
+          .waitForElementPresent('@tr', 10000)
+          .expect.elements('@tr').count.to.equal(1)
+          .assert.containsText('@tr', movieTitle)
   }
 }
 
@@ -43,6 +49,9 @@ module.exports = {
   commands: [movieActions],
   elements: {
     addButton: '.movie-add',
+    searchInput: 'input[placeholder*="Pesquisar"]',
+    searchIcon: '#search-movie',
+    tr: 'table tbody tr',
     movieForm: '#movie-form',
     titleInput: 'input[name="title"]',
     statusSelect: 'input[placeholder="Status"]',

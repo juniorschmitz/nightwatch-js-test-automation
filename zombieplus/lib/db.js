@@ -21,7 +21,7 @@ export default {
 
   insertMovie: (movie) => {
     let query = `INSERT INTO public.movies(title, status, year, release_date, "cast", overview, cover, created_at, uploaded_at)
-    VALUES ('${movie.title}', '${movie.status}', '${movie.year}', '${movie.releaseDate}', '${movie.cast}', '${movie.plot}', 
+    VALUES ('${movie.title}', '${movie.status}', '${movie.year}', '${movie.releaseDate}', '{${movie.cast}}', '${movie.plot}', 
     '${movie.cover}', current_timestamp, current_timestamp);`
 
     return new Promise((resolve, reject) => {

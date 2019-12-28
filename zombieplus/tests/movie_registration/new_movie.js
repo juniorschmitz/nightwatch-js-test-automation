@@ -5,6 +5,8 @@ module.exports = {
   
   before: function(browser) {
     let login = browser.page.login()
+    let sidebar = browser.page.sidebar()
+
     login.with('zombiepotato@potato.com', 'pwd123')
     sidebar.expectLoggedUser('ZombiePotato')
   },
