@@ -1,4 +1,6 @@
 module.exports = {
+  '@tags': ['smoke'],
+
   'Sucessful Login': (browser) => {
     let login = browser.page.login()
     let sidebar = browser.page.sidebar()

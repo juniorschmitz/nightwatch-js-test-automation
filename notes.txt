@@ -112,3 +112,8 @@ function qualquerCoisa2() {
 
 # ELEMENT IS NOT ATTATCHED TO THE PAGE DOCUMENT
 - usar waitForElementPresent ao invés do waitForElementVisible
+
+# SOBRE AGRUPAMENTOS DE EXECUÇÃO E TAGS
+// agrupamento de testes -- execução por grupos de testes (pastas):
+// rodar com npm run test:login, ou outras tags, conforme implementado no package.json
+// '@disabled': true -> desabilitar testes direto nos scripts

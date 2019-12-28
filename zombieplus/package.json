@@ -4,6 +4,11 @@
   "description": "Projeto de testes automatizados utilizando NightwatchJS",
   "main": "index.js",
   "scripts": {
+    "test:login": ".\\node_modules\\.bin\\nightwatch.cmd --group login",
+    "test:nologin": ".\\node_modules\\.bin\\nightwatch.cmd --skipgroup login",
+    "test:movie_registration": ".\\node_modules\\.bin\\nightwatch.cmd --group movie_registration",
+    "test:search": ".\\node_modules\\.bin\\nightwatch.cmd --group search",
+    "test:smoke": ".\\node_modules\\.bin\\nightwatch.cmd --tag smoke"
     "test": ".\\node_modules\\.bin\\nightwatch.cmd"
   },
   "keywords": [
