@@ -8,6 +8,7 @@ module.exports = {
   src_folders: ["tests"],
 
   page_objects_path: './pages',
+  global_path: './hooks/global.js',
 
   webdriver: {
     start_process: true,
@@ -17,6 +18,9 @@ module.exports = {
 
   test_settings: {
     default: {
+      globals: {
+        waitForConditionTimeout: 15000 // Timeout Global (like Capybara)
+      },
       desiredCapabilities: {
         browserName : 'chrome'
       }

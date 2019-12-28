@@ -101,3 +101,14 @@ function qualquerCoisa2() {
   }
   let c = a + b
 }
+
+# encapsular além das ações nas páginas, as validações nos page objects
+# fazer asserções encapsuladas só é ruim em frameworks diferentes do NightwatchJS, que não são completos e precisam de um motor de assertions
+# rodar somente o teste que quero: ir em nightwatch.conf.js e colocar o path completo até o arquivo que quero: exemplo test/cadastro ao invés de test
+
+
+# USO DE BD PARA MELHORAR OS TESTES
+- executar na raíz: npm install pg --save-dev
+
+# ELEMENT IS NOT ATTATCHED TO THE PAGE DOCUMENT
+- usar waitForElementPresent ao invés do waitForElementVisible
