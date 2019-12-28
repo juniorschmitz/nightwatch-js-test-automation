@@ -16,6 +16,10 @@ module.exports = {
     port: 9515
   },
 
+  test_workers: {
+    enabled: true
+  },
+
   test_settings: {
     default: {
       globals: {

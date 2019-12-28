@@ -117,3 +117,13 @@ function qualquerCoisa2() {
 // agrupamento de testes -- execução por grupos de testes (pastas):
 // rodar com npm run test:login, ou outras tags, conforme implementado no package.json
 // '@disabled': true -> desabilitar testes direto nos scripts
+
+# parallelism
+é nativo no próprio NightwatchJS Framework
+
+habilitando paralelismo na configuração do NightwatchJS:
+test_workers: {
+  enabled: true
+},
+desta forma, o próprio Framework encontra a melhor forma de paralelismo de acordo com o hardware disponível
+possibilidade de "forçar" workers: $ workers: <n_workers>
