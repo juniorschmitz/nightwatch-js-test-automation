@@ -127,3 +127,55 @@ test_workers: {
 },
 desta forma, o próprio Framework encontra a melhor forma de paralelismo de acordo com o hardware disponível
 possibilidade de "forçar" workers: $ workers: <n_workers>
+
+# DOCKER-HUB
+Dockerfile auto generated from QAninja, putted on the project
+Jenkinsfile setted for using the Dockerfile,
+but we can put the Dockerfile as a template on the Docker Hub
+
+for using the image from the hub:
+agent {
+    docker { image "jacquesschmitz/node-wd" }
+}
+
+for using Dockerfile from project:
+agent {
+    Dockerfile { true }
+}
+
+# screenshots no Jenkins
+- para colocar screenshots: 
+ativar plugin juNit attachments.
+junit testDataPublishers: [[$class: 'AttachmentPublisher']], testResults: "test_output/**/*.xml"
+
+# colocando Screenshot no fim de todos os testes
+npm install faker --save-dev
+
+- nos hooks
+const faker = require('faker')
+
+let shotPath = `./tests_output/screenshots/${faker.random.uuid()}.png`
+
+browser
+    .saveScreenshot(shotPath, function() {
+      const assertions = browser.currentTest.results.assertions || [];
+      if (assertions.length > 0) {
+        const currentAssertion = assertions[assertions.length -1];
+        if (currentAssertion) {
+          currentAssertion.screenshots = currentAssertion.screenshots || [];
+          currentAssertion.screenshots.push(shotPath);
+        }
+      }
+    })
+    .end()
+done()
+
+- caso implementar o caso acima, tirar a configuração do nightwatch.conf.js:
+screenshots: {
+    enabled: true,
+    on_failure: true,
+    on_error: true,
+    path: 'tests_output/'
+  },
+
+- dar uma olhada na visão Blue ocean

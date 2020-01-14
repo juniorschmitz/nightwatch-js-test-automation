@@ -12,7 +12,8 @@
     "stage:smoke": ".\\node_modules\\.bin\\nightwatch.cmd --tag smoke --env=stage",
     "test:firefox:smoke": ".\\node_modules\\.bin\\nightwatch.cmd --tag smoke --env=firefox",
     "test:chrome_headless": ".\\node_modules\\.bin\\nightwatch.cmd --env=chrome_headless",
-    "test": ".\\node_modules\\.bin\\nightwatch.cmd"
+    "test": ".\\node_modules\\.bin\\nightwatch.cmd",
+    "test:ci": "./node_modules/.bin/nightwatch --tag smoke --env=headless"
   },
   "keywords": [
     "nightwatch",
